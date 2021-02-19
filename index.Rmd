@@ -1,0 +1,74 @@
+---
+title: "index.Rmd"
+output: html_document
+highlight: kate
+keep_md: yes
+theme: united
+---
+### Trabajo de Miguel Jimenez
+
+##PA 3 
+
+
+
+###  PLOT / BIVARIATE REGRESSION
+
+This plot uses the dataset **english**.
+The bivariate regression involves the relation between the lenght of words in English language and the written to spoken ratio using the BCN corpus of written English and the CELEX corpus of  oral English. 
+The variables are LenthInWords and WrittentoSpokenFrequencyRatio.
+
+The Bivariate regression shows an R-Square of 0.041. (I assume I have to use the SSE or something to turn the negative values into negative... something is missing)
+
+``` {r plot_english_1, echo = FALSE}
+library(tidyverse)
+library(languageR)
+library(ggplot2)
+
+english %>%
+  ggplot (aes(x = WrittenSpokenFrequencyRatio, y = LengthInLetters)) +
+  geom_point(alpha = 0.05) +
+  geom_point(colour = "black", size = 1.5, alpha = 0.05) +
+  geom_smooth(method = lm) 
+ 
+```
+
+``` {r , echo = FALSE}
+
+ 
+
+        #bivariate regression / calculation WrittenSpokenFrequencyRation ~ LenghtinLetters
+
+english_mod <- lm(WrittenSpokenFrequencyRatio ~ LengthInLetters, data = english)
+summary(english_mod)
+```
+
+
+###  NEXT PLOT TO PLAY A BIT MORE
+
+This plot uses the Dataset **"ratings"**, and it studies the relation between the use of singular and plural of animals and plants nouns in English. Animals are used more in plural than plants.
+This is just a first try to study the relations in different datasets.
+
+```{r ratings, echo=FALSE}
+
+
+#summary of ratings
+print("Stats  = FreqSingular")
+summary(ratings$FreqSingular)
+print("Stats  = FreqPlural")
+summary(ratings$FreqPlural)
+print("Stats  = Class")
+summary (ratings$Class)
+
+#plot with plants and animals to see
+##if they appear more in sing or plural
+ratings %>%
+ggplot (aes(x = FreqSingular, y = FreqPlural, col = Class)) +
+  geom_point() +
+  geom_smooth(method = lm)
+
+```
+
+
+
+### THANKS 
+### @SOMEONE
